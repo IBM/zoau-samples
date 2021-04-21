@@ -1,2 +1,2 @@
 # zoau
-A repository for finding and sharing example IBM Z Open Automation Utilities (ZOAU) scripts and snippets.
+A repository for the Z Open Automation Utilities (ZOAU) community to discuss ZOAU and provide samples and snippets 
