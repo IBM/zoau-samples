@@ -14,3 +14,21 @@ Dump out the fixed, modified, and pageable LPA’s:
 ```shell
 echo " LISTLPA" | mvscmd --pgm=AMBLIST --syslib=SYS1.NUCLEUS --sysin=stdin --sysprint=stdout
 ```
+
+Get the current ‘MVS’ local time (as opposed to the Unix System Services local time):
+
+```shell
+opercmd 'd t' | awk ' { if ($5 == "IEE136I") { print substr($8,8,2) substr($8,11) " " substr($7,6) }}'
+```
+
+Compress an existing PDS:
+
+```shell
+mvscmd --args=COMPRESS --pgm=IEBCOPY --sysut2=${dsn},old --sysprint=* --sysin=dummy
+```
+
+Determine what address spaces are using a dataset:
+
+```shell
+opercmd 'd grs,res=(*,${dsn})'
+```
