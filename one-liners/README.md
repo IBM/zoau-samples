@@ -21,7 +21,7 @@ Get the current ‘MVS’ local time (as opposed to the Unix System Services loc
 opercmd 'd t' | awk ' { if ($5 == "IEE136I") { print substr($8,8,2) substr($8,11) " " substr($7,6) }}'
 ```
 
-Compress an existing PDS:
+Compress a PDS in place:
 
 ```shell
 mvscmd --args=COMPRESS --pgm=IEBCOPY --sysut2=${dsn},old --sysprint=* --sysin=dummy
