@@ -93,6 +93,12 @@ I/O configuration used:
 opercmd 'd ios,config'
 ```
 
+Lists information about your SMS managed volumes:
+
+```shell
+opercmd 'D SMS,STORGRP(ALL),LISTVOL'
+```
+
 Dump out the load module information for SYS1.NUCLEUS to stdout:
 
 ```shell
