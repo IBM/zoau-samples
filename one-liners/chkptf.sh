@@ -1,7 +1,8 @@
 #!/bin/sh
 #
-# Copyright 2021 IBM Corp
+# Print out what PTFs you have applied to a particular CSI/Target Zone:
 #
+# Copyright 2021 IBM Corp.
 #
 
 CSI='MVS.GLOBAL.CSI'
