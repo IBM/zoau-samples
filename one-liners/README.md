@@ -128,3 +128,20 @@ Determine what address spaces are using a dataset:
 ```shell
 opercmd 'd grs,res=(*,${dsn})'
 ```
+
+Run an operator command and loop until you get the expected output:
+
+```shell
+function runCmd {
+  cmd="$1"
+  pattern="$2"
+  timestamp=`opercmd "${cmd}" | tail -1 | awk '{ print $2 " " $3; }'`
+  while [ true ]; do
+    pcon -s ${timestamp} | grep "${pattern}"
+  if [ $? -eq 0 ]; then
+   break;
+  fi
+  sleep 3
+ done
+}
+```
