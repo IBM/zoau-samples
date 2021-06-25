@@ -145,3 +145,16 @@ function runCmd {
  done
 }
 ```
+
+Print out the console log for just a particular job. In this example, the job is
+STC01455 and it will get the last day of output from the SYSLOG. See
+<https://tech.mikefulton.ca/SYSLOGFormat> for details on the system log format…
+
+```shell
+job="STC01455"
+opts='-d'
+pcon ${opts} | awk -vjob="${job}" '
+ BEGIN { trace=0 }
+ /^O|^M|^N|^W|^X/ { if ($6 == job) { trace=1; print; } else { trace=0; }  }
+ /^S|^L|^E|^D/  { if (trace) { print; } }
+```
