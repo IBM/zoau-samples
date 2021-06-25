@@ -3,7 +3,7 @@
 # Dump and Filter RACF database for 2 record types:
 # http://tech.mikefulton.ca/IRRDBU00RecordTypes
 #
-# Copyright 2021 IBM Corp.
+# Copyright IBM Corp. 2021
 #
 
 mvscmd --pgm=sort --sortin=${tempds} --sysout=${err} --sortout=${output} --sysin=stdin <<zz

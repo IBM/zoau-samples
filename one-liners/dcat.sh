@@ -2,7 +2,7 @@
 #
 # cat sequential datasets, or PDS members (supports wildcards in dataset and member)
 #
-# Copyright 2021 IBM Corp.
+# Copyright IBM Corp. 2021
 #
 
 #set -x

@@ -2,7 +2,7 @@
 #
 # Print out what PTFs you have applied to a particular CSI/Target Zone:
 #
-# Copyright 2021 IBM Corp.
+# Copyright IBM Corp. 2021
 #
 
 CSI='MVS.GLOBAL.CSI'
