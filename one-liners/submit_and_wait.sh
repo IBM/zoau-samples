@@ -3,6 +3,8 @@
 # Routine to submit short running JCL and wait for output.
 #
 # Copyright IBM Corp 2021.
+#
+
 #set -x
 function runJCL {
 	jcl="$1"
