@@ -3,7 +3,7 @@
 # Receive a PTF that you have uploaded to the Unix System Services
 # zFS file system from ShopZ.
 #
-# Copyright 2021 IBM Corp.
+# Copyright IBM Corp. 2021
 #
 
 CSI='MVS.GLOBAL.CSI'
