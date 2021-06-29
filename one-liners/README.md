@@ -138,11 +138,11 @@ function runCmd {
   timestamp=`opercmd "${cmd}" | tail -1 | awk '{ print $2 " " $3; }'`
   while [ true ]; do
     pcon -s ${timestamp} | grep "${pattern}"
-  if [ $? -eq 0 ]; then
-   break;
-  fi
-  sleep 3
- done
+    if [ $? -eq 0 ]; then
+      break;
+    fi
+    sleep 3
+  done
 }
 ```
 
