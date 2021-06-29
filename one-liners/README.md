@@ -3,6 +3,13 @@
 This is a list of sample ZOAU one-liners.  These are designed to accomplish a task from the
 z/OS UNIX command line that would normally require using a TSO, JCL, or console interface.
 
+Print out what PTFs you have applied to a particular CSI/Target Zone: [chkptf](chkptf.sh)
+
+Cat sequential datasets, or PDS members (supports wildcards in dataset and member): [dcat](dcat.sh)
+
+Dump and Filter RACF database for 2 record types: [dump_and_filter_racf](dump_and_filter_racf.sh)
+
+
 Print empty cylinders on volume USER01:
 
 ```shell
