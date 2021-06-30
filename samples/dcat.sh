@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# cat sequential datasets, or PDS members (supports wildcards in dataset and member)
+# cat sequential datasets or PDS members (supports wildcards in dataset and member)
 #
 # Copyright IBM Corp. 2021
 #

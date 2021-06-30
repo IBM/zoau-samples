@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Print out what PTFs you have applied to a particular CSI/Target Zone:
+# Print out what PTFs have been applied to a particular CSI/Target Zone.
 #
 # Copyright IBM Corp. 2021
 #
