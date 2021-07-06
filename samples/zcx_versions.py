@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 #
 # Iterate through a zCX registry directory and obtain version information
-# about any running zCX instances.
+# about any running zCX instances.  Print a message if a given instance
+# is backlevel and can be upgraded. Requires Python and ZOAU.
+#
+# Usage: python3 zcx_versions.py -p <ZCX_REGISTRY_PATH>
 #
 # Anthony Giorgio <agiorgio@us.ibm.com>
 #
 # Copyright IBM Corp. 2021
-#
 #
 
 import argparse
