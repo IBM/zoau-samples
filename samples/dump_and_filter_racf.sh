@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Dump and Filter RACF database for 2 record types:
+# Dump and Filter RACF database for two record types:
 # http://tech.mikefulton.ca/IRRDBU00RecordTypes
 #
 # Copyright IBM Corp. 2021
