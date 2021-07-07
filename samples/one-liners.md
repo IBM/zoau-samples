@@ -22,6 +22,20 @@ Print online volumes:
 opercmd 'd u,dasd,online,,65536'
 ```
 
+Print all files on all online volumes:
+Write out the online volumes to stdout, then strip off the 5 header lines and the one trailer line, using awk to print just the volume serial name and store it into the variable _volumes_.
+For each volume in volumes, print out the volume table of contents if there is no error getting the VTOC for the volume. This will list cataloged and uncataloged datasets. 
+You could add a _grep_ or _awk_ filter on the end to restrict the output to files of a particular pattern.
+```shell
+volumes=`opercmd 'd u,dasd,online,,65536' | tail +5 | sed \\$d | awk '{ print $4; }'` 
+for volume in $volumes; do
+  out=`vtocls $volume 2>/dev/null` 
+  if [ $? -eq 0 ]; then 
+    echo "$out" 
+  fi
+done
+```
+
 Display status of all z/OS detected disk labels:
 
 ```shell
