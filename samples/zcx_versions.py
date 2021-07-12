@@ -81,16 +81,36 @@ with os.scandir(path=registry_path) as it:
                 # If it's running, parse out the version information.
                 lines = result.decode().splitlines()
 
-                if "Current Appliance" in lines[5]:
-                    current_version = lines[6].split()[0]
-                    available_version = lines[9].split()[0]
+                msg_start_idx = None
+                for i in range(0,len(lines)):
+                    if "GLZB022I" in lines[i]:
+                        msg_start_idx = i
+
+                if msg_start_idx is None:
+                    print("Unable to parse version message.")
+                    continue
+
+                apar_offset = 3
+                version_offset = 1
+
+                if "Current Appliance" in lines[msg_start_idx + 3]:
+                    current_apar = lines[msg_start_idx + 3].split()[apar_offset]
+                    current_version = lines[msg_start_idx + 4].split()[version_offset]
+                    available_apar = lines[msg_start_idx + 6].split()[apar_offset]
+                    available_version = lines[msg_start_idx + 7].split()[version_offset]
 
                     if (current_version != available_version):
-                        print("Instance {0} is version {1} and can be upgraded to {2}"
-                              .format(entry.name.ljust(8), current_version, available_version))
+                        print("Instance {0} is version {1} ({2}) and can be upgraded to {3} ({4})"
+                              .format(entry.name.ljust(8), current_version, current_apar,
+                                      available_version, available_apar))
                     else:
                         if not cli_opts.upgradeable_only:
-                            print("Instance {0} is version {1}".format(entry.name.ljust(8), current_version))
+                            print("Instance {0} is version {1} ({2})".format(entry.name.ljust(8),
+                                                                             current_version, current_apar))
+
+                else:
+                    print("Unable to find current instance version.")
+                    continue
 
             except subprocess.CalledProcessError as e:
                 print(e.stdout.decode())
