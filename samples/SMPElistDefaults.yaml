@@ -1,0 +1,12 @@
+SMPECSI:
+  Dataset: AS4SMP.GLOBAL.CSI
+TEMP_DATASET:
+  Primary_space: 5M
+  Secondary_space: 5M
+  Volume: USRAT5
+OUTPUT_DATASET:
+  Primary_space: 5M
+  Secondary_space: 5M
+  Volume: USRAT5
+SMPECNTL:
+  Filename: /tmp/smpentl.input
