@@ -52,6 +52,9 @@ function Syntax {
 	echo "  -h : Print this help." >&2
 	echo "  -v : Verbose mode - print out the DDNames sent to batch TSO (IKJEFT1B)." >&2
 	echo "  - : Read the SYSTSIN DDName data from stdin, not from a dataset." >&2
+	echo "Note:" >&2
+	echo "  The ISPF datasets need to be allocated as part of running a command under ISPF." >&2
+	echo "  export ISPF_HLQ=<hlq> to indicate the high level qualifier for the ISPF datasets. Default is ISP." >&2
 	echo "Example 1:" >&2
 	echo "  Read SYSTSIN from stdin. Run the program HW from library IBMUSER.USER.LOAD under ISPF. Turn off output from SYSTSPRT by setting the DDName to DUMMY." >&2
 	echo "  (export SYSTSPRT=DUMMY; export ISPLLIB=IBMUSER.USER.LOAD; echo '  ISPSTART PGM(HW)' | ispfcmd.sh  -)" >&2
