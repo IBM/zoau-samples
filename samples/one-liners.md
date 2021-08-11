@@ -22,6 +22,20 @@ Print online volumes:
 opercmd 'd u,dasd,online,,65536'
 ```
 
+Print all files on all online volumes:
+* Write out the online volumes to stdout, then strip off the 5 header lines and the one trailer line, using awk to print just the volume serial name and store it into the variable _volumes_.
+* For each volume in volumes, print out the volume table of contents if there is no error getting the VTOC for the volume. This will list cataloged and uncataloged datasets. 
+* __Note__: You could add a _grep_ or _awk_ filter on the end to restrict the output to files of a particular pattern.
+```shell
+volumes=`opercmd 'd u,dasd,online,,65536' | tail +5 | sed \\$d | awk '{ print $4; }'` 
+for volume in $volumes; do
+  out=`vtocls $volume 2>/dev/null` 
+  if [ $? -eq 0 ]; then 
+    echo "$out" 
+  fi
+done
+```
+
 Display status of all z/OS detected disk labels:
 
 ```shell
@@ -112,13 +126,13 @@ Dump out the load module information for SYS1.NUCLEUS to stdout:
 echo " LISTLOAD OUTPUT=MAP" | mvscmd --pgm=AMBLIST --syslib=SYS1.NUCLEUS --sysin=stdin --sysprint=stdout
 ```
 
-Dump out the fixed, modified, and pageable LPA’s:
+Dump out the fixed, modified, and pageable LPA's:
 
 ```shell
 echo " LISTLPA" | mvscmd --pgm=AMBLIST --syslib=SYS1.NUCLEUS --sysin=stdin --sysprint=stdout
 ```
 
-Get the current ‘MVS’ local time (as opposed to the Unix System Services local time):
+Get the current __MVS__ local time (as opposed to the Unix System Services local time):
 
 ```shell
 opercmd 'd t' | awk ' { if ($5 == "IEE136I") { print substr($8,8,2) substr($8,11) " " substr($7,6) }}'
@@ -155,7 +169,7 @@ function runCmd {
 
 Print out the console log for just a particular job. In this example, the job is
 STC01455 and it will get the last day of output from the SYSLOG. See
-<https://tech.mikefulton.ca/SYSLOGFormat> for details on the system log format…
+<https://tech.mikefulton.ca/SYSLOGFormat> for details on the system log format
 
 ```shell
 job="STC01455"
