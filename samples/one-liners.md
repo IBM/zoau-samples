@@ -126,13 +126,14 @@ Dump out the load module information for SYS1.NUCLEUS to stdout:
 echo " LISTLOAD OUTPUT=MAP" | mvscmd --pgm=AMBLIST --syslib=SYS1.NUCLEUS --sysin=stdin --sysprint=stdout
 ```
 
-Dump out the fixed, modified, and pageable LPAâs:
+
+Dump out the fixed, modified, and pageable LPA's:
 
 ```shell
 echo " LISTLPA" | mvscmd --pgm=AMBLIST --syslib=SYS1.NUCLEUS --sysin=stdin --sysprint=stdout
 ```
 
-Get the current âMVSâ local time (as opposed to the Unix System Services local time):
+Get the current __MVS__ local time (as opposed to the Unix System Services local time):
 
 ```shell
 opercmd 'd t' | awk ' { if ($5 == "IEE136I") { print substr($8,8,2) substr($8,11) " " substr($7,6) }}'
@@ -169,7 +170,7 @@ function runCmd {
 
 Print out the console log for just a particular job. In this example, the job is
 STC01455 and it will get the last day of output from the SYSLOG. See
-<https://tech.mikefulton.ca/SYSLOGFormat> for details on the system log formatâ¦
+<https://tech.mikefulton.ca/SYSLOGFormat> for details on the system log format
 
 ```shell
 job="STC01455"
