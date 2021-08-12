@@ -40,20 +40,23 @@ def smpe_list(target_zone="GLOBAL", list_options=None, high_level_qualifier="SYS
     # and the temporary dataset
     temp_dataset = None
 
+    # setup the filename just in case
+    sysin_file_name = None
+
     # get the defaults from the yaml file
     defaults = get_defaults("./SMPElistDefaults.yaml")
 
     try:
         # Setup base DDs
         dd_list.append(
-            DDStatement("SMPCSI", DatasetDefinition(defaults["SMPECSI"]["Dataset"]))
+            DDStatement("SMPCSI", DatasetDefinition(defaults["SMPECSI"]["dataset"]))
         )
         dd_list.append(DDStatement("SMPLOG", "DUMMY"))
         dd_list.append(DDStatement("SMPLOGA", "DUMMY"))
 
         # Create Temporary File
         temp_dataset_name = datasets.tmp_name(high_level_qualifier)
-        temp_dataset = datasets.create(
+        datasets.create(
             temp_dataset_name,
             type="PDS",
             primary_space=(defaults["TEMP_DATASET"]["primary_space"]).strip(),
@@ -80,7 +83,7 @@ def smpe_list(target_zone="GLOBAL", list_options=None, high_level_qualifier="SYS
 
         # define the place for the output to go
         output_dataset_name = datasets.tmp_name(high_level_qualifier)
-        _ = datasets.create(
+        datasets.create(
             output_dataset_name,
             type="SEQ",
             primary_space=(defaults["OUTPUT_DATASET"]["primary_space"]).strip(),
@@ -101,7 +104,8 @@ def smpe_list(target_zone="GLOBAL", list_options=None, high_level_qualifier="SYS
         # remove temporary dataset and file
         if temp_dataset:
             datasets.delete(temp_dataset_name)
-        os.remove(sysin_file_name)
+        if sysin_file_name is not None:
+            os.remove(sysin_file_name)
 
     print(f"Output can be found in: {output_dataset_name}\n")
 
