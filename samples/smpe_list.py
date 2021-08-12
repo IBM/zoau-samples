@@ -27,7 +27,7 @@ from zoautil_py import mvscmd, datasets
 from zoautil_py.types import DDStatement, DatasetDefinition, FileDefinition
 
 
-def SMPE_list(target_zone="GLOBAL", list_options=None,
+def smpe_list(target_zone="GLOBAL", list_options=None,
               high_level_qualifier="SYS1"):
     '''
     This function does the heavy lifting. It performs the function that
@@ -42,7 +42,7 @@ def SMPE_list(target_zone="GLOBAL", list_options=None,
     temp_dataset = None
 
     # get the defaults from the yaml file
-    defaults = getdefaults("./SMPElistDefaults.yaml")
+    defaults = get_defaults("./SMPElistDefaults.yaml")
 
     try:
         # Setup base DDs
@@ -55,11 +55,11 @@ def SMPE_list(target_zone="GLOBAL", list_options=None,
         # Create Temporary File
         temp_dataset_name = datasets.tmp_name(high_level_qualifier)
         temp_dataset = datasets.create(temp_dataset_name, type="PDS",
-                                       primary_space=(defaults["TEMP_DATASET"]["Primary_space"]).strip(),
-                                       secondary_space=(defaults["TEMP_DATASET"]["Secondary_space"]).strip(),
+                                       primary_space=(defaults["TEMP_DATASET"]["primary_space"]).strip(),
+                                       secondary_space=(defaults["TEMP_DATASET"]["secondary_space"]).strip(),
                                        block_size=3200,
                                        record_format="FB", record_length=80,
-                                       volumes=(defaults["TEMP_DATASET"]["Volume"]).strip(),
+                                       volumes=(defaults["TEMP_DATASET"]["volume"]).strip(),
                                        directory_blocks=10)
 
         # add it to the ddList
@@ -67,7 +67,7 @@ def SMPE_list(target_zone="GLOBAL", list_options=None,
                                    DatasetDefinition(temp_dataset_name)))
 
         # define the input for the program make - sure the input is EBCIDIC
-        sysin_file_name = defaults["SMPECNTL"]["Filename"]
+        sysin_file_name = defaults["SMPECNTL"]["filename"]
         with open(sysin_file_name, mode="w", encoding="cp1047") as file:
             file.write(f"SET     BDY({target_zone}).\n")
             if list_options is None:
@@ -80,9 +80,9 @@ def SMPE_list(target_zone="GLOBAL", list_options=None,
         # define the place for the output to go
         output_dataset_name = datasets.tmp_name(high_level_qualifier)
         _ = datasets.create(output_dataset_name, type="SEQ",
-                            primary_space=(defaults["OUTPUT_DATASET"]["Primary_space"]).strip(),
-                            secondary_space=(defaults["OUTPUT_DATASET"]["Secondary_space"]).strip(),
-                            volumes=(defaults["OUTPUT_DATASET"]["Volume"]).strip())
+                            primary_space=(defaults["OUTPUT_DATASET"]["primary_space"]).strip(),
+                            secondary_space=(defaults["OUTPUT_DATASET"]["secondary_space"]).strip(),
+                            volumes=(defaults["OUTPUT_DATASET"]["volume"]).strip())
         dd_list.append(DDStatement("SMPLIST",
                                    DatasetDefinition(output_dataset_name)))
 
@@ -106,21 +106,21 @@ def SMPE_list(target_zone="GLOBAL", list_options=None,
     return command_return_code 
 
 
-def getdefaults(filename):
+def get_defaults(filename):
     '''
     Get the defaults for this program. This is will hold information
     for the workarea dataset and the location of the file we will use
     to hold SMPECNTL.
     '''
     # This is all of the information the yaml file should contain
-    required_keys = [("SMPECSI","Dataset"),
-                     ("TEMP_DATASET","Primary_space"),
-                     ("TEMP_DATASET","Secondary_space"),
-                     ("TEMP_DATASET","Volume"),
-                     ("SMPECNTL","Filename"),
-                     ("OUTPUT_DATASET","Primary_space"),
-                     ("OUTPUT_DATASET","Secondary_space"),
-                     ("OUTPUT_DATASET","Volume")]
+    required_keys = [("SMPECSI","dataset"),
+                     ("TEMP_DATASET","primary_space"),
+                     ("TEMP_DATASET","secondary_space"),
+                     ("TEMP_DATASET","volume"),
+                     ("SMPECNTL","filename"),
+                     ("OUTPUT_DATASET","primary_space"),
+                     ("OUTPUT_DATASET","secondary_space"),
+                     ("OUTPUT_DATASET","volume")]
     
     # Open the yaml file and load the data into defaults
     with open(filename) as file:
@@ -169,7 +169,7 @@ def main():
     SMPE_list function
     '''
     args = parse_args()
-    result = SMPE_list(args.zone, args.options, args.hlq).to_dict()
+    result = smpe_list(args.zone, args.options, args.hlq).to_dict()
     if result["rc"] > 0:
         sys.stderr.write(f"Return Code: {result['rc']}\n")
         if result["stderr_response"]:
