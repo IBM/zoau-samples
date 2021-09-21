@@ -12,4 +12,5 @@ There are also longer scripts that can be useful:
 |[dump_and_filter_racf.sh](dump_and_filter_racf.sh)|Dump and Filter RACF database for two record types|
 |[rcvptf.sh](rcvptf.sh)|Receive a PTF that you have uploaded to the Unix System Services zFS file system from ShopZ.|
 |[ispfcmd.sh](ispfcmd.sh)|Run an ISPF command from Unix System Services.|
+|[mps.sh](mps.sh)|Display active MVS processes.|
 |[zcx_versions.py](zcx_versions.py)|Check running zCX instances to see if any can be upgraded.|
