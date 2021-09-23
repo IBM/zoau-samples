@@ -19,9 +19,7 @@ echo "${raw}" | awk '
 		if (NF > 6 && text != "") { 
 			print text; text="" 
 		} 
-		{ 
-			text=text line " " 
-		} 
+		text=text line " " 
 	} 
 	END { print text }'
 
