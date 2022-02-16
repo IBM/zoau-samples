@@ -17,3 +17,4 @@ There are also longer scripts that can be useful:
 |[smpe_list.py](smpe_list.py)|Sample code showing how to convert from JCL to Python using the list feature of SMPE.|
 |[SMPElistDefaults.yaml](SMPElistDefaults.yaml)|Definitions that smpe_list.py needs. Must be put in the same directory as smpe_list.py. Changes need to be made to match users system|
 |[console.sh](console.sh)|Run opercmd interactively| 
+|[runjcl.py](runjcl.py)| submit a JCL job and print job status | 
