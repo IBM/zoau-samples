@@ -9,14 +9,13 @@ jcl_sample = """//**************************************************************
 //*           printed in the job's output listing (SYSOUT).
 //* MSGCLASS: assign an output class for your output listing (SYSOUT)
 //******************************************************************************
-//SAMPLE    JOB (T043JM,JM00,1,0,0,0),'SAMPLE - JRM',
-//             MSGCLASS=X,MSGLEVEL=1,NOTIFY=&SYSUID
+//UPTIME    JOB MSGLEVEL=(1,1),MSGCLASS=A,CLASS=A,NOTIFY=&SYSUID
 //*
-//* SLEEP 1 SEC THEN PRINT USS COMMAND ON JOB OUTPUT
+//* PRINT USS COMMAND ON JOB OUTPUT
 //*
-//SAMPLE  EXEC PGM=BPXBATCH
+//UPTIME  EXEC PGM=BPXBATCH
 //STDPARM DD *
-SH sleep 1 && uptime
+SH uptime
 //STDIN  DD DUMMY
 //STDOUT DD SYSOUT=*
 //STDERR DD SYSOUT=*
@@ -25,7 +24,7 @@ SH sleep 1 && uptime
 def run_sample():
 
     dsn_sample_jcl = datasets.hlq() + ".SAMPLE.JCL"
-    dsn_with_mem_sample_jcl = dsn_sample_jcl + "(SAMPLE)"
+    dsn_with_mem_sample_jcl = dsn_sample_jcl + "(UPTIME)"
 
     # NOTE - data set does NOT need to exist prior to running this sample.
 
@@ -50,7 +49,7 @@ def run_sample():
     print("status: ", job_sample.status)
     print("rc: ", job_sample.rc)
 
-    dd_stdout = jobs.read_output(job_sample.id, 'SAMPLE', 'STDOUT')
+    dd_stdout = jobs.read_output(job_sample.id, 'UPTIME', 'STDOUT')
 
     # print the stdout produced by job
     print("The contents of the STDOUT DD:")
