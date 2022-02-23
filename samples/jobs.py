@@ -1,6 +1,8 @@
 from zoautil_py import jobs, datasets
 
-jcl_sample = """//******************************************************************************
+jcl_sample = """//UPTIME    JOB MSGLEVEL=(1,1),
+//  MSGCLASS=A,CLASS=A
+//******************************************************************************
 //* Configure the job card as needed, most common keyword parameters often
 //* needing editing are:
 //* CLASS: Used to achieve a balance between different types of jobs and avoid
@@ -9,11 +11,10 @@ jcl_sample = """//**************************************************************
 //*           printed in the job's output listing (SYSOUT).
 //* MSGCLASS: assign an output class for your output listing (SYSOUT)
 //******************************************************************************
-//UPTIME    JOB MSGLEVEL=(1,1),MSGCLASS=A,CLASS=A,NOTIFY=&SYSUID
 //*
 //* PRINT USS COMMAND ON JOB OUTPUT
 //*
-//UPTIME  EXEC PGM=BPXBATCH
+//UPTIME  EXEC PGM=BPXBATCH,REGION=0M
 //STDPARM DD *
 SH uptime
 //STDIN  DD DUMMY
