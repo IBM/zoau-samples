@@ -24,13 +24,16 @@ SH sleep 1 && uptime
 
 def run_sample():
 
-    dsn_sample_jcl = "ZOAUSER.SAMPLE.JCL(SAMPLE)"
+    dsn_sample_jcl = datasets.hlq() + ".SAMPLE.JCL"
+    dsn_with_mem_sample_jcl = dsn_sample_jcl + "(SAMPLE)"
+
+    # NOTE - data set does NOT need to exist prior to running this sample.
 
     # create and write JCL to data set
-    datasets.write(dataset=dsn_sample_jcl, content=jcl_sample)
+    datasets.write(dataset=dsn_with_mem_sample_jcl, content=jcl_sample)
 
     # submit job
-    job_sample = jobs.submit(dsn_sample_jcl)
+    job_sample = jobs.submit(dsn_with_mem_sample_jcl)
 
     print("Details - sample job")
     print("id:", job_sample.id)
@@ -58,8 +61,7 @@ def run_sample():
     # cancels and removes job from jes system
     job_sample.purge()
 
-    # string manipulation -
-    # we want to pass the data set name without the member name
-    datasets.delete(dsn_sample_jcl.split('(')[0])
+    # delete data set
+    datasets.delete(dsn_sample_jcl)
 
 run_sample()
