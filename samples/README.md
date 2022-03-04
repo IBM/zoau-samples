@@ -2,7 +2,7 @@
 
 This directory contains a number of sample scripts that use ZOAU in various ways.
 
-[See one-liners.md for a number of short examples](one-liners.md) that accomplish different tasks.
+See [one-liners.md](one-liners.md) for a number of short examples that accomplish different tasks.
 There are also longer scripts that can be useful:
 
 |Name|Purpose|
