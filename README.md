@@ -7,3 +7,5 @@ We welcome contributions and [discussions](https://github.com/IBM/zoau/discussio
 *(If you're new to Discussions on Github, you can read more [here](https://docs.github.com/en/discussions/collaborating-with-your-community-using-discussions/about-discussions).)*
 
 Some sample commands can be found in the [samples](samples) directory.
+
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5868/badge)](https://bestpractices.coreinfrastructure.org/projects/5868)
