@@ -18,3 +18,4 @@ There are also longer scripts that can be useful:
 |[SMPElistDefaults.yaml](SMPElistDefaults.yaml) | Definitions that `smpe_list.py` needs. Must be put in the same directory as `smpe_list.py`. Changes need to be made to match the user's system.
 |[console.sh](console.sh)|Run `opercmd` interactively.
 |[runjcl.py](runjcl.py)| Submit a JCL job and print job status.
+|[runrexx.py](runrexx.py)| Run a Rexx program in IKJEFT01 and return the data for processing
