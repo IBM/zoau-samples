@@ -53,8 +53,8 @@ def runjob(jcl_ds: str):
 
 def _print_to_log(status_record: list):
     """ Module can be called to write the record of statuses to a file.
-        Record will be overwritten everytime script is ran to prevent file
-        from getting too large.
+        Record will be overwritten every time the script is run to prevent
+        the file from getting too large.
 
         NOTE: Currently this module is not being called from anywhere *
 
