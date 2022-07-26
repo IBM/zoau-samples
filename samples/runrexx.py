@@ -65,12 +65,13 @@ def runrexx(authorized, library, program_info, inputdata, outputinfo):
     dd_list = []  # This will hold the list of dds for the IKJEFT01 call
 
     cwd = os.getcwd()  # need explicit paths for dds
+    static_time = str(datetime.now().timestamp())
     # This will hold any input into the program
-    systsinfile = f"{cwd}/systsin.{str(datetime.now().timestamp())}"
+    systsinfile = f"{cwd}/systsin.{static_time}"
     # This will hold any MVS messages
-    sysprtfile = f"{cwd}/sysprt.{str(datetime.now().timestamp())}"
+    sysprtfile = f"{cwd}/sysprt.{static_time}"
     # This will hold TSO output
-    systsprtfile = f"{cwd}/systsprt.{str(datetime.now().timestamp())}"
+    systsprtfile = f"{cwd}/systsprt.{static_time}"
 
     # The first dd statement will tell the system the dataset containing
     # the REXX code
@@ -158,7 +159,7 @@ def main():
         print("You must provide a dataset name that holds the REXX Code.")
         sys.exit(1)
     dataset = sys.argv[1]
-    authorized = True
+    authorized = False
     program_and_parms = "HELOWRLD These are the parameters"
     returndata = runrexx(
         authorized,
