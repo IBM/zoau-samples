@@ -5,10 +5,9 @@ z/OS UNIX command line that would normally require using a TSO, JCL, or console 
 
 Print out what PTFs you have applied to a particular CSI/Target Zone: [chkptf](chkptf.sh)
 
-Cat sequential datasets, or PDS members (supports wildcards in dataset and member): [dcat](dcat.sh)
+Cat sequential data sets, or PDS members (supports wildcards in data set and member): [dcat](dcat.sh)
 
 Dump and Filter RACF database for 2 record types: [dump_and_filter_racf](dump_and_filter_racf.sh)
-
 
 Print empty cylinders on volume USER01:
 
@@ -24,7 +23,7 @@ opercmd 'd u,dasd,online,,65536'
 
 Print all files on all online volumes:
 * Write out the online volumes to stdout, then strip off the 5 header lines and the one trailer line, using awk to print just the volume serial name and store it into the variable _volumes_.
-* For each volume in volumes, print out the volume table of contents if there is no error getting the VTOC for the volume. This will list cataloged and uncataloged datasets. 
+* For each volume in volumes, print out the volume table of contents if there is no error getting the VTOC for the volume. This will list cataloged and uncataloged data sets. 
 * __Note__: You could add a _grep_ or _awk_ filter on the end to restrict the output to files of a particular pattern.
 ```shell
 volumes=`opercmd 'd u,dasd,online,,65536' | tail +5 | sed \\$d | awk '{ print $4; }'` 
@@ -145,7 +144,7 @@ Compress a PDS in place:
 mvscmd --args=COMPRESS --pgm=IEBCOPY --sysut2=${dsn},old --sysprint=stdout --sysin=dummy
 ```
 
-Determine what address spaces are using a dataset:
+Determine what address spaces are using a data set:
 
 ```shell
 opercmd 'd grs,res=(*,${dsn})'
@@ -180,3 +179,13 @@ pcon ${opts} | awk -vjob="${job}" '
  /^O|^M|^N|^W|^X/ { if ($6 == job) { trace=1; print; } else { trace=0; }  }
  /^S|^L|^E|^D/  { if (trace) { print; } }
 ```
+
+**Data Set Operations**
+- Delete data set `HLQ.MLQ.LLQ` using mvscmd and idcams  
+  `echo " DELETE HLQ.MLQ.LLQ " |mvscmdauth --verbose --pgm=IDCAMS --sysprint=* --sysin=stdin`
+
+- Delete data set `HLQ.MLQ.LLQ` on a particular volume using mvscmd and idcams  
+  `echo "  DELETE HLQ.MLQ.LLQ FILE(DD1) NVR" | mvscmdauth --pgm=IDCAMS --sysprint=* --dd1=USERVOL,vol --sysin=stdin`
+
+- Rename data set `HLQ.MLQ.LLQ` to `USER.MLQ.LLQ`using mvscmd and idcams  
+  `echo " ALTER HLQ.MLQ.LLQ NEWNAME(USER.MLQ.LLQ)" |mvscmdauth --verbose --pgm=IDCAMS --sysprint=* --sysin=stdin`
