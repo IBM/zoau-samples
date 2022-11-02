@@ -17,7 +17,7 @@ volume=$(dls -s ${data_set} | awk -F ' ' '{print $5}')
 mvscmd --pgm=IEHLIST \
        --sysprint=stdout \
        --dd1=${data_set},shr,volumes=${volume} \
-    --sysin=stdin <<zz
+       --sysin=stdin <<zz
  LISTPDS VOL=3390=${volume},FORMAT,                                       X
                DSNAME=${data_set}
 zz
