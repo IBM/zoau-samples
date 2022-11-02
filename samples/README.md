@@ -10,7 +10,7 @@ There are also longer scripts that can be useful:
 |[chkptf.sh](chkptf.sh) | Print out what PTFs have been applied to a particular CSI/Target Zone.
 |[dcat.sh](dcat.sh) | Cat sequential datasets or PDS members (supports wildcards in dataset and member).
 |[dump_and_filter_racf.sh](dump_and_filter_racf.sh) | Dump and Filter RACF database for two record types.
-|[iehlist](iehlist.sh) | Run IEHLIST to get the directory information for a data set.
+|[listdirinfo](listdirinfo.sh) | Use IEHLIST to get the directory information for a data set.
 |[rcvptf.sh](rcvptf.sh) | Receive a PTF that you have uploaded to the Unix System Services zFS file system from ShopZ.
 |[ispfcmd.sh](ispfcmd.sh) | Run an ISPF command from Unix System Services.
 |[mps.sh](mps.sh) | Display active MVS processes.

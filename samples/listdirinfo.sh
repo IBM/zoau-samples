@@ -1,4 +1,10 @@
 #!/bin/bash
+#!/bin/sh
+#
+# Use IEHLIST to get the directory information for a data set.
+#
+# Copyright IBM Corp. 2022
+#
 
 set -e
 
