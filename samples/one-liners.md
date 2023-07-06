@@ -229,6 +229,44 @@ pcon ${opts} | awk -vjob="${job}" '
  /^S|^L|^E|^D/  { if (trace) { print; } }
 ```
 
+### Refresh the LLA
+
+Refresh the LLA. Requires increased priveledges.
+
+```shell
+opercmd 'modify lla,refresh'
+```
+
+### Print a list of SMS-managed volumes
+
+```shell
+opercmd 'd sms,storgrp(all),listvol'
+```
+
+### Print the defined system symbols
+
+```shell
+opercmd 'd symbols' | tail +4
+```
+
+### Print the list of online volumes
+
+```shell
+opercmd 'd u,dasd,online,,65536'
+```
+
+### Permit a user access to a class
+
+```shell
+tsocmd "PERMIT ${profile} CLASS(${class}) ID(${id}) ACCESS(${access})"
+```
+
+### Show the access type for users in class and profile
+
+```shell
+tsocmd "RLIST ${class} ${profile} ALL"
+```
+
 # Data Set Operations
 
 ### Delete
