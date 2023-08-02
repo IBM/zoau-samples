@@ -149,7 +149,6 @@ def cleanup_temporaries(debugging :bool=False):
         None
     """
     for dataset in _mcs_data_set_list:
-        print(dataset)
         if "TEMPRARY" in dataset:
             if "/" in dataset:
                 if debugging:
