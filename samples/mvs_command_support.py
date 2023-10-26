@@ -6,6 +6,7 @@ import subprocess
 from datetime import datetime
 from zoautil_py import datasets, mvscmd
 from zoautil_py.types import DDStatement, FileDefinition, DatasetDefinition
+import os
 
 _mcs_data_set_list=[]
 
@@ -13,11 +14,10 @@ def get_zos_userid() -> str:
     """Get the z/OS userid from the system.
     Parameters: None
     Return:
-        user_id - <str>: The z/OS user id of the caller
+        _ <str>: The z/OS user id of the caller
     """
-    uid = str(subprocess.run(["id"], shell=True, capture_output=True, check=False).stdout)
-    user_id = uid[(uid.find("(")+1):uid.find(")")]
-    return user_id
+    return os.environ('USER')
+
 
 
 def create_temp_dataset(options: dict=None) -> dict:
@@ -78,7 +78,7 @@ def get_temp_file_name(name : str=None, working_directory : str="/tmp") -> str:
     Return:
         filename - <str>: The name of the created file
     """
-    # First lets make sure the name has the word TEMPORARY in it
+    # First lets make sure the name has the word TEMPRARY in it
     if name is None:
         name = "TEMPRARY"
     else:
@@ -110,15 +110,13 @@ def create_input_file(input_list : list, input_file_name : str, codepage : str="
     with open(input_file_name, "w", encoding=codepage) as sysin:
         for listitem in input_list:
             if len(listitem) > 72:
-                print("Input lines must be less than 72 chars\n")
-                print(f"{listitem} is length: {len(listitem)} and is ignored")
-
+                raise Warning(f"{listitem} length: {len(listitem)} is over 72 characters and is ignored")
             else:
                 sysin.write(f"{listitem}\n")
 
 
 def create_input_dd(input_list : list, ddname : str="SYSIN")->DDStatement:
-    """Create an input DD basedd on a list
+    """Create an input DD based on a list
 
     Parameters:
         input_list - <list>: A list of strings which is input to the DD
@@ -211,4 +209,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
+
