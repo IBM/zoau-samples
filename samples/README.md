@@ -8,6 +8,7 @@ There are also longer scripts that can be useful:
 |Name|Purpose|
 |----|-------|
 |[chkptf.sh](chkptf.sh) | Print out what PTFs have been applied to a particular CSI/Target Zone.
+|[create_sysin.py](create_sysin.py) | Create a file for sysin input. Used for mvscmd calls.
 |[dcat.sh](dcat.sh) | Cat sequential datasets or PDS members (supports wildcards in dataset and member).
 |[dump_and_filter_racf.sh](dump_and_filter_racf.sh) | Dump and Filter RACF database for two record types.
 |[listdirinfo](listdirinfo.sh) | Use IEHLIST to get the directory information for a data set.
@@ -18,5 +19,6 @@ There are also longer scripts that can be useful:
 |[smpe_list.py](smpe_list.py) | Sample code showing how to convert from JCL to Python using the list feature of SMPE.
 |[SMPElistDefaults.yaml](SMPElistDefaults.yaml) | Definitions that `smpe_list.py` needs. Must be put in the same directory as `smpe_list.py`. Changes need to be made to match the user's system.
 |[console.sh](console.sh)|Run `opercmd` interactively.
+|[member_copy.py](member_copy.py) | Copy members from one data set to another
 |[runjcl.py](runjcl.py)| Submit a JCL job and print job status.
 |[runrexx.py](runrexx.py)| Run a Rexx program in IKJEFT01 and return the data for processing
