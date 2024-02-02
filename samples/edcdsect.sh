@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 # 
-# EDCDSECT USS invocation. 'edcdsect -?' for help (see below)
+# EDCDSECT USS invocation. 'edcdsect.sh -h' for help (see below)
 #
 syntax()
 {
@@ -17,10 +17,10 @@ Parameters:
 
 Examples:
   Process a single macro DCBD into a structure:
-    echo '      DCBD' | edcdsect
+    echo 'IHADCB DCBD' | edcdsect.sh
 
   Process an assembler file dcbd.s into a structure:
-    edcdsect dcbd.s
+    edcdsect.sh dcbd.s
 "
 }
 
@@ -71,6 +71,9 @@ compiler="CBC.SCCNCMP"
 asm='ASMA90'
 asm_opts='SUPRWARN(425,434),GOFF,ADATA,NOTERM,NODECK,NOOBJECT,LIST'
 sysadata=$(mvstmp $(hlq))
+
+drm -f "${sysadata}"
+
 if ! dtouch -rvb -l8144 -tseq "${sysadata}" ; then
   printf 'Unable to allocate SYSADATA temporary dataset %s' "${sysadata}"
   exit 4
@@ -89,6 +92,7 @@ if ${verbose} ; then
 fi
 
 tmp_output=$(mvstmp $(hlq))
+drm -f "${tmp_output}"
 if ! dtouch -rvb -l137 -tseq "${tmp_output}" ; then
   printf 'Unable to allocate DSECT temporary output dataset %s' "${tmp_output}"
   exit 4
@@ -96,7 +100,7 @@ fi
 err=$(mvscmd --pgm=CCNEDSCT --args="SECT(${struct_name}),EQU,NODEF,UNNAMED" --steplib="${compiler}" --sysadata="${sysadata}" --edcdsect="${tmp_output}" --sysprint=stdout --sysout=stdout)
 rc=$?
 
-cat "//'${tmp_output}'"
+dcat "${tmp_output}"
 if [ $rc -gt 0 ]; then
   printf '%s\n' "${err}" >&2
   exit $rc
