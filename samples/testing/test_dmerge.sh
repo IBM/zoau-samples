@@ -46,6 +46,7 @@ Setup()
 
 	decho "Chang      Joe       278 232 6043
 DeBeer     Jo        348 132 6023
+Doe        Jack      878 222 5043
 White      Belinda   178 222 5043" "${DS_INA}"
 	rcad=$?
 
@@ -96,7 +97,16 @@ DS_EXPECTED="$(hlq).DMERGE.EXPECTED"
 
 ASC_EXPECTED="Chang      Joe       278 232 6043
 DeBeer     Jo        348 132 6023
+Doe        Jack      878 222 5043
 Doe        Jane      878 222 5043
+Smith      Joe       778 232 6043
+Smyth      Jo        748 132 6023
+White      Belinda   178 222 5043"
+
+ASC_DSC_EXPECTED="Chang      Joe       278 232 6043
+DeBeer     Jo        348 132 6023
+Doe        Jane      878 222 5043
+Doe        Jack      878 222 5043
 Smith      Joe       778 232 6043
 Smyth      Jo        748 132 6023
 White      Belinda   178 222 5043"
@@ -129,5 +139,53 @@ decho "${ASC_EXPECTED}" "${DS_EXPECTED}"
 
 if ! Check "${DS_INA}(HW)" "${DS_INB}(HW)" "${DS_MERGE}(HW)" "${DS_EXPECTED}" "-K 1,9,CH,A" ; then
 	echo "Test 2 Check failed" >&2
+	exit 4
+fi
+
+#
+# Test3: allocate 3 datasets as FB 80 and sort by field 1,9 ascending and then 10,8 descending
+# 
+
+if ! Setup "${DS_INA}" "${DS_INB}" "${DS_MERGE}" "${DS_EXPECTED}" "FB" "80" ; then
+	echo "Test 3 Setup failed" >&2
+	exit 4
+fi
+
+decho "${ASC_DSC_EXPECTED}" "${DS_EXPECTED}"
+
+if ! Check "${DS_INA}" "${DS_INB}" "${DS_MERGE}" "${DS_EXPECTED}" "-K 1,9,CH,A" "-K10,8,CH,D" ; then
+	echo "Test 3 Check failed" >&2
+	exit 4
+fi
+
+#
+# Test4: allocate 3 datasets as FB 80 and sort by field 1,9 ascending and then 10 to end ascending
+# 
+
+if ! Setup "${DS_INA}" "${DS_INB}" "${DS_MERGE}" "${DS_EXPECTED}" "FB" "80" ; then
+	echo "Test 4 Setup failed" >&2
+	exit 4
+fi
+
+decho "${ASC_EXPECTED}" "${DS_EXPECTED}"
+
+if ! Check "${DS_INA}" "${DS_INB}" "${DS_MERGE}" "${DS_EXPECTED}" "-K 1,9,CH,A" "-K10" ; then
+	echo "Test 4 Check failed" >&2
+	exit 4
+fi
+
+#
+# Test5: allocate 3 datasets as VB 80 and sort by field 1,9 ascending and then 10 to known end ascending
+# 
+
+if ! Setup "${DS_INA}" "${DS_INB}" "${DS_MERGE}" "${DS_EXPECTED}" "VB" "80" ; then
+	echo "Test 5 Setup failed" >&2
+	exit 4
+fi
+
+decho "${ASC_EXPECTED}" "${DS_EXPECTED}"
+
+if ! Check "${DS_INA}" "${DS_INB}" "${DS_MERGE}" "${DS_EXPECTED}" "-K 1,9,CH,A" "-K10,23" ; then
+	echo "Test 5 Check failed" >&2
 	exit 4
 fi

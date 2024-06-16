@@ -56,7 +56,7 @@ GenKey()
 	start=$((start+start_offset))
 
 	if [ "${length}" = '' ]; then
-		length=$((lrecl-start+1))
+		length=$((lrecl-start))
 	fi
 	if [ "${keytype}" = '' ]; then
 		keytype='CH'
