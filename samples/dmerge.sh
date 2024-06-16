@@ -32,7 +32,6 @@ Syntax()
 
 GenKey()
 {
-	set -x
 	local start_offset=$1
 	local recfm=$2
 	local lrecl=$3
