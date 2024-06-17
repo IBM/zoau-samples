@@ -56,7 +56,7 @@ GenKey()
 	start=$((start+start_offset))
 
 	if [ "${length}" = '' ]; then
-		length=$((lrecl-start))
+		length=$((lrecl-start+1))
 	fi
 	if [ "${keytype}" = '' ]; then
 		keytype='CH'
@@ -155,6 +155,10 @@ else
 fi
 
 merge_cmd=''
+if [ "${keys}" = '' ]; then
+	keys='1'
+fi
+
 for key in $keys; do
 	if [ "${merge_cmd}" = '' ]; then
 		merge_cmd=' MERGE FIELDS=('
