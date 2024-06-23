@@ -11,18 +11,18 @@
 Syntax()
 {
 	echo "das.sh is a utility for disassembling programs that reside in datasets."
-	echo "Usage: das.sh [dataset] [module]"
+	echo "Usage: das.sh DATASET MODULE"
 	echo "Options:"
-	echo "  --help, -?  displays help"
+	echo "  --help, -h  displays help"
 	echo "Examples:"
 	echo "  das.sh CEE.SCEERUN CEEBINIT    Disassemble the CEEBINIT module."
 	echo "Notes:"
-	echo "  Output written to [module].das and [module].lst in current directory."
+	echo "  Output written to MODULE.das and MODULE.lst in current directory."
 }
 
 if [ $# -ne 2 ]; then
 	Syntax
-	if [ "$1" = "-?" ] || [ "$1" = "-help" ] ; then
+	if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
 		exit 0
 	fi
 	exit 4
