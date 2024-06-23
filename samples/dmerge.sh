@@ -1,10 +1,11 @@
 #!/bin/env bash
 
-# dmerge: merge 2 datasets into one using SORT
-# requires ZOAU to be installed on your system.
+# dmerge: merge two datasets into one using SORT
+# Requires ZOAU to be installed on your system.
+# Requires bash to be installed on your system. bash is now available as part of Open Enterprise Foundation (OEF).
 # This is a simple wrapper to generic SORT for just a subset of MERGE capabilities.
 #
-# This sample only supports all 3 datasets being the same LRECL and RECFM. 
+# This sample only supports all three datasets being the same LRECL and RECFM.
 #
 # IBM DFSORT documentation can be found here: https://www.ibm.com/docs/en/zos/latest?topic=descriptions-dfsort
 # Feel free to enhance this script as appropriate.
@@ -14,10 +15,10 @@
 
 Syntax()
 {
-	echo "dmerge.sh is a utility for merging 2 datasets into one."    
-	echo "Usage: dmerge.sh [OPTION] [input-dataset 1] [input-dataset 2] [output-dataset]"
+	echo "dmerge.sh is a utility for merging two datasets into one."
+	echo "Usage: dmerge.sh [OPTION] input-dataset-1 input-dataset-2 output-dataset"
 	echo "Options:"
-	echo "  --help, -?  displays help."
+	echo "  --help, -h  displays help."
 	echo "  -K [start,[length],[keytype],[direction]]  Defines a key field."
 	echo "Defaults:"
 	echo "  If no -K option specified, defaults are 1,[record-length],CH,A."
@@ -70,7 +71,7 @@ GenKey()
 
 if [ $# -lt 3 ]; then
 	Syntax
-	if [ "$1" = "-?" ] || [ "$1" = "-help" ] ; then
+	if [ "$1" = "-h" ] || [ "$1" = "--help" ] ; then
 		exit 0
 	fi
 	exit 4
@@ -79,7 +80,7 @@ fi
 keys=''
 while [ $# -gt 3 ]; do
 	case $1 in
-	"-h" | "--help" | "-?")
+	"-h" | "--help")
 		Syntax
 		exit 0
 		;;

@@ -84,8 +84,7 @@ DMERGE_DIR="$(cd "${DMERGE_DIR}" > /dev/null 2>&1 && pwd -P)"
 DMERGE="dmerge.sh"
 
 export PATH="${DMERGE_DIR}:${PATH}"
-
-if $( "${DMERGE}" --help >/dev/null ) ; then
+if ! $( "${DMERGE}" --help >/dev/null ) ; then
 	echo "${DMERGE} --help should run with rc 0"
 	exit 4
 fi
