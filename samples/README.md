@@ -9,6 +9,7 @@ There are also longer scripts that can be useful:
 |----|-------|
 |[chkptf.sh](chkptf.sh) | Print out what PTFs have been applied to a particular CSI/Target Zone.
 |[create_sysin.py](create_sysin.py) | Create a file for sysin input. Used for mvscmd calls.
+|[das.sh](das.sh) | Disassemble a dataset member. Wrapper script around ASMDASM.
 |[dcat.sh](dcat.sh) | Cat sequential datasets or PDS members (supports wildcards in dataset and member).
 |[dump_and_filter_racf.sh](dump_and_filter_racf.sh) | Dump and Filter RACF database for two record types.
 |[edcdsect](edcdsect.sh) | Create a C structure from an assembler DSECT, using ZOAU, the Assembler, and EDCDSECT batch utility.
