@@ -30,6 +30,7 @@ z/OS UNIX command line that would normally require using a TSO, JCL, or console 
     - [Determine what address spaces are using a data set](#determine-what-address-spaces-are-using-a-data-set)
     - [Run commmand and 'wait'](#run-commmand-and-wait)
     - [Print a job's console log](#print-a-jobs-console-log)
+    - [Print starting timestamp from syslogd archive GDG](#print-starting-timestamp-from-syslogd-archive-gdg)
 - [Data Set Operations](#data-set-operations)
     - [Delete](#delete)
     - [Delete on volume](#delete-on-volume)
@@ -265,6 +266,23 @@ tsocmd "PERMIT ${profile} CLASS(${class}) ID(${id}) ACCESS(${access})"
 
 ```shell
 tsocmd "RLIST ${class} ${profile} ALL"
+```
+
+### Print starting timestamp from syslogd archive GDG
+syslogd can be configured to archive logs to a GDG archive.
+ex.   
+BeginArchiveParms
+  DSNPrefix   SVTLOG.SYSLOGD.&SYSCLONE.
+  UNIT        3390
+  VOLUME      SVTLG4
+  RetPd       0
+EndArchiveParms
+ #TTLS auth
+  *.TCPIP*.AUTH.*   /var/log/policy/attls.log      -N ATTLS(+1)
+
+This one-liner will print the timestamp of the first message in each GDG
+``` shell
+  dls svtlog.syslogd.es.attls.* | xargs -I{} bash -c "echo -n {} - ; dcat {} | head -1 | cut -c1-15" 2>/dev/null
 ```
 
 # Data Set Operations
