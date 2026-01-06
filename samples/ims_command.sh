@@ -25,7 +25,7 @@
 #
 # ENVIRONMENT VARIABLES:
 #   TMPHLQ - (Optional) High-Level Qualifier for temporary datasets
-#            If not set, the script will use the default HLQ from ZOAU's hlq command
+#            If not set, the script will use the default TSO high level qualifier
 #
 # USAGE:
 #   ./ims_command.sh
