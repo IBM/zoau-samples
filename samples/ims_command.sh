@@ -161,7 +161,7 @@ function issue_cmd {
 
     # Create a sequential dataset to hold the IMS command
     dtouch -tSEQ "${jcltmp}"
-    
+
     # Write the IMS command (passed as $1) to the temporary dataset
     decho "$1" "${jcltmp}"
 
